@@ -13,6 +13,7 @@ use Yiisoft\Yii\View\Renderer\Csrf;
  * @var WebView $this
  * @var ConsentForm $form
  * @var array{
+ *   menu: list<array{label: string, url: string, alignEnd: bool, routeName: string|null}>,
  *   formSubmitUrl: string,
  * } $data
  * @var TranslatorInterface $translator
@@ -22,6 +23,8 @@ use Yiisoft\Yii\View\Renderer\Csrf;
 $this->setTitle($translator->translate('voyti.view.delete_account.title'));
 
 echo Html::div()->open();
+echo $this->render('../shared/_menu', ['menu' => $data['menu']]);
+
 echo Html::H1($translator->translate('voyti.view.delete_account.title'));
 
 echo Html::p()->class('alert alert-danger')->open();

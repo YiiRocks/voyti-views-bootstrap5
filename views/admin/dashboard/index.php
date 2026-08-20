@@ -70,7 +70,7 @@ foreach ($data['trendWidgets'] as $widget) {
         $bodyContent .= Html::div(
             Html::div((string) $period['value'])->class('fs-3 fw-bold') .
             Html::div($translator->translate($period['labelKey'], $period['params']))->class('text-muted small')
-        )->class('col');
+        )->class('col')->encode(false);
     }
     $bodyContent .= Html::div()->close();
     echo $card(
@@ -93,7 +93,7 @@ if ($data['recentAuditLogs'] === []) {
             Html::div($log['createdAt'])->class('col-3 col-md-2 text-muted small') .
             Html::div($log['action'])->class('col-9 col-md-4 text-break') .
             Html::div($log['targetLabel'])->class('col-12 col-md-6 text-break small text-muted')
-        )->class('row py-2 align-items-center' . ($key !== $lastKey ? ' border-bottom' : ''));
+        )->class('row py-2 align-items-center' . ($key !== $lastKey ? ' border-bottom' : ''))->encode(false);
     }
 }
 echo $card(
