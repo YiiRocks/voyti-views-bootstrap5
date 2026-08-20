@@ -1,0 +1,92 @@
+<?php
+
+declare(strict_types=1);
+
+use YiiRocks\Voyti\Model\Form\Auth\LoginForm;
+use Yiisoft\FormModel\Field;
+use Yiisoft\Html\Html;
+use Yiisoft\Translator\TranslatorInterface;
+use Yiisoft\View\WebView;
+use Yiisoft\Yii\AuthClient\Widget\AuthChoice;
+use Yiisoft\Yii\View\Renderer\Csrf;
+
+/**
+ * @var WebView $this
+ * @var LoginForm $form
+ * @var array{
+ *   formSubmitUrl: string,
+ *   forgotPasswordUrl: string,
+ *   showRegisterLink: bool,
+ *   registerUrl: string,
+ *   recaptchaFieldHtml: string,
+ *   authChoice: AuthChoice|null,
+ * } $data
+ * @var TranslatorInterface $translator
+ * @var array{success: string|null, warning: string|null} $flash
+ * @var Csrf $csrf
+ *
+ * dependency only yiirocks/voyti-social-auth actually requires - core has no compile-time
+ * knowledge of it at all.
+ */
+
+$this->setTitle($translator->translate('voyti.view.login.title'));
+
+echo Html::div()->open();
+echo $this->render('../shared/_flash');
+echo Html::H1($translator->translate('voyti.view.login.title'));
+
+echo Html::form()
+    ->post($data['formSubmitUrl'])
+    ->csrf($csrf)
+    ->enctypeMultipartFormData()
+    ->open();
+
+echo Field::errorSummary($form);
+
+$tabindex = 0;
+
+echo Field::text($form, 'login')->tabIndex(++$tabindex)->autofocus();
+
+echo Field::password($form, 'password')->tabIndex(++$tabindex);
+
+echo Field::checkbox($form, 'rememberMe')->tabIndex(++$tabindex);
+
+echo $data['recaptchaFieldHtml'];
+
+echo Field::buttonGroup()
+    ->buttonsData([
+        [$translator->translate('voyti.view.reset_button'), 'type' => 'reset', 'tabindex' => $tabindex + 2],
+        [$translator->translate('voyti.view.login.sign_in_button'), 'type' => 'submit', 'tabindex' => ++$tabindex],
+    ]);
+
+echo Html::form()->close();
+
+echo Html::div()->class('mt-3')->open();
+
+echo Html::a($translator->translate('voyti.view.login.forgot_password'), $data['forgotPasswordUrl']);
+
+if ($data['showRegisterLink']) {
+    echo ' | ';
+    echo Html::a($translator->translate('voyti.view.login.register_link'), $data['registerUrl']);
+}
+echo Html::div()->close();
+
+if ($data['authChoice'] !== null && $data['authChoice']->getClients() !== []) {
+    echo Html::div()->class('mt-4')->open();
+
+    echo Html::div()->class('d-flex align-items-center mb-3')->open();
+    echo Html::hr()->class('flex-grow-1');
+    echo Html::span($translator->translate('voyti.view.login.social_divider'))->class('mx-2 text-muted small');
+    echo Html::hr()->class('flex-grow-1');
+    echo Html::div()->close();
+
+    echo Html::div()->class('text-center')->open();
+    /**
+     */
+    echo $data['authChoice']->render();
+    echo Html::div()->close();
+
+    echo Html::div()->close();
+}
+
+echo Html::div()->close();

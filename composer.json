@@ -1,0 +1,57 @@
+{
+    "name": "yiirocks/voyti-views-bootstrap5",
+    "description": "Bootstrap5 views for Voyti user management library",
+    "type": "library",
+    "keywords": [
+        "yii",
+        "yii3",
+        "voyti",
+        "views",
+        "bootstrap5"
+    ],
+    "homepage": "https://www.yii.rocks/voyti/",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Mr.42",
+            "homepage": "https://mr42.me/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/YiiRocks/voyti-views-bootstrap5/issues",
+        "source": "https://github.com/YiiRocks/voyti-views-bootstrap5/tree/main"
+    },
+    "require": {
+        "php": ">=8.3",
+        "yiirocks/voyti": "^1.0",
+        "yiisoft/bootstrap5": "^1.0",
+        "yiisoft/form-model": "^1.1",
+        "yiisoft/html": "^4.0",
+        "yiisoft/json": "^1.0",
+        "yiisoft/view": "^12.0",
+        "yiisoft/yii-dataview": "^1.1"
+    },
+    "provide": {
+        "yiirocks/voyti-views": "^1.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "yiisoft/config": true
+        }
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/YiiRocks"
+        }
+    ]
+}
