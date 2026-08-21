@@ -20,5 +20,5 @@ echo Html::div(
         Html::H1($data['title'])
         . Html::a($translator->translate('voyti.view.go_home'), $data['homeUrl'])
             ->class(LinkButtonHelper::submitButtonClass()),
-    )->class('card-body', 'text-center', 'py-5')->render(),
-)->class('card', 'shadow-sm')->render();
+    )->class('card-body', 'text-center', 'py-5')->encode(false)->render(),
+)->class('card', 'shadow-sm')->encode(false)->render();

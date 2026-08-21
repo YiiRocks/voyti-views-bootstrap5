@@ -1,1 +1,1 @@
-<div class="container-fluid p-3 bg-light rounded">&lt;p&gt;Layout content&lt;/p&gt;</div>
+<div class="container-fluid p-3 bg-light rounded"><p>Layout content</p></div>
