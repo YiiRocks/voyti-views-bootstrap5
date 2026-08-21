@@ -53,8 +53,8 @@ foreach ($data['tiles'] as $tile) {
         ->class('text-decoration-none')
         ->open();
     echo $card(
-        body: Html::div((string) $tile['value'])->class('fs-2 fw-bold') .
-            Html::div($translator->translate($tile['labelKey']))->class('text-muted small'),
+        body: Html::div((string) $tile['value'])->class('fs-2 fw-bold')
+            . Html::div($translator->translate($tile['labelKey']))->class('text-muted small'),
         class: 'h-100 text-center ' . $tile['borderClass'],
     );
     echo Html::a()->close();
@@ -68,8 +68,8 @@ foreach ($data['trendWidgets'] as $widget) {
     $bodyContent = Html::div()->class('row row-cols-3 text-center g-2')->open();
     foreach ($widget['periods'] as $period) {
         $bodyContent .= Html::div(
-            Html::div((string) $period['value'])->class('fs-3 fw-bold') .
-            Html::div($translator->translate($period['labelKey'], $period['params']))->class('text-muted small')
+            Html::div((string) $period['value'])->class('fs-3 fw-bold')
+            . Html::div($translator->translate($period['labelKey'], $period['params']))->class('text-muted small'),
         )->class('col')->encode(false);
     }
     $bodyContent .= Html::div()->close();
@@ -90,9 +90,9 @@ if ($data['recentAuditLogs'] === []) {
     $lastKey = array_key_last($data['recentAuditLogs']);
     foreach ($data['recentAuditLogs'] as $key => $log) {
         $auditContent .= Html::div(
-            Html::div($log['createdAt'])->class('col-3 col-md-2 text-muted small') .
-            Html::div($log['action'])->class('col-9 col-md-4 text-break') .
-            Html::div($log['targetLabel'])->class('col-12 col-md-6 text-break small text-muted')
+            Html::div($log['createdAt'])->class('col-3 col-md-2 text-muted small')
+            . Html::div($log['action'])->class('col-9 col-md-4 text-break')
+            . Html::div($log['targetLabel'])->class('col-12 col-md-6 text-break small text-muted'),
         )->class('row py-2 align-items-center' . ($key !== $lastKey ? ' border-bottom' : ''))->encode(false);
     }
 }
@@ -114,9 +114,9 @@ if ($data['recommendedPackages'] !== []) {
                 ->href($package['composerUrl'])
                 ->class('btn btn-sm btn-link')
                 ->target('_blank')
-                ->rel('noopener noreferrer') .
-            ' ' .
-            Html::a($translator->translate('voyti.view.dashboard.documentation'))
+                ->rel('noopener noreferrer')
+            . ' '
+            . Html::a($translator->translate('voyti.view.dashboard.documentation'))
                 ->href($package['docsUrl'])
                 ->class('btn btn-sm btn-link')
                 ->target('_blank')

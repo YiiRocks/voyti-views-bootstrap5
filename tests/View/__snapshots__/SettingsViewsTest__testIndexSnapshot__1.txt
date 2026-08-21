@@ -1,0 +1,5 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1 class="h3 mb-3">voyti.view.settings.welcome</h1><ul class="list-group mb-4">
+<li class="list-group-item"><b>voyti.view.email_label</b>: jane@example.com</li>
+<li class="list-group-item"><b>voyti.view.settings.member_since</b>: 2026-01-01</li>
+</ul></div>

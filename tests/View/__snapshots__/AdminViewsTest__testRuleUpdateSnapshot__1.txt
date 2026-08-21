@@ -1,0 +1,12 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti.view.rule.update_title</h1><form method="POST" action="/fixture/rule-update">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="rule-name">voyti.view.name_label</label>
+<input type="text" name="rule[name]" value tabindex="1" id="rule-name">
+</div><div>
+<label for="rule-class">voyti.view.rule.class_label</label>
+<input type="text" name="rule[class]" value tabindex="2" id="rule-class">
+</div><div>
+<button type="reset" tabindex="4">voyti.view.reset_button</button>
+<button type="submit" tabindex="3">voyti.view.update_button</button>
+</div></form></div>

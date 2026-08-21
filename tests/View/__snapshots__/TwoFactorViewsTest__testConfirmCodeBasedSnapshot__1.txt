@@ -1,0 +1,8 @@
+<div><h1>voyti-2fa.view.two_factor.title</h1><form method="POST" action="/fixture/2fa-confirm">
+<input type="hidden" name="_csrf" value="test-csrf-token"><p class="text-muted small">voyti-2fa.view.two_factor.backup_code_hint</p><div>
+<label for="confirm-twofactorauthenticationcode">voyti-2fa.view.two_factor.code_label</label>
+<input type="text" name="confirm[twoFactorAuthenticationCode]" value autocomplete="one-time-code" tabindex="1" id="confirm-twofactorauthenticationcode">
+</div><div>
+<button type="reset" tabindex="3">voyti.view.reset_button</button>
+<button type="submit" tabindex="2">voyti-2fa.view.two_factor.verify_button</button>
+</div></form></div>

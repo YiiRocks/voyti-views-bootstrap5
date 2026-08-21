@@ -17,8 +17,8 @@ $this->setTitle($data['title']);
 
 echo Html::div(
     Html::div(
-        Html::H1($data['title']) .
-        Html::a($translator->translate('voyti.view.go_home'), $data['homeUrl'])
-            ->class(LinkButtonHelper::submitButtonClass())
-    )->class('card-body', 'text-center', 'py-5')->render()
+        Html::H1($data['title'])
+        . Html::a($translator->translate('voyti.view.go_home'), $data['homeUrl'])
+            ->class(LinkButtonHelper::submitButtonClass()),
+    )->class('card-body', 'text-center', 'py-5')->render(),
 )->class('card', 'shadow-sm')->render();

@@ -1,0 +1,43 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti.view.edit_profile.title</h1><div class="card border-primary mb-4"><div class="card-header bg-primary text-white"><h2 class="h5 mb-0">voyti.view.userProfile.title</h2></div><ul class="list-group ">
+<li class="list-group-item text-center py-3"><h3 class="h4 mb-3">Jane Doe</h3><img src="https://gravatar.com/avatar/abc" alt class="rounded-circle"></li>
+<li class="list-group-item"><b>voyti.view.public_email_label</b>: jane.public@example.com</li>
+<li class="list-group-item"><b>voyti.view.location_label</b>: Berlin</li>
+<li class="list-group-item"><b>voyti.view.website_label</b>: <a href="https://example.com" rel="noopener noreferrer" target="_blank">https://example.com</a></li>
+<li class="list-group-item"><b>voyti.view.timezone_label</b>: Europe/Berlin</li>
+<li class="list-group-item"><b>voyti.view.bio_label</b>: Line one<br />
+Line two</li>
+</ul></div><form method="POST" action="/fixture/profile-update">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="userprofile-name">voyti.view.name_label</label>
+<input type="text" name="userProfile[name]" value tabindex="1" id="userprofile-name">
+</div><div>
+<label for="userprofile-publicemail">voyti.view.public_email_label</label>
+<input type="email" name="userProfile[publicEmail]" value tabindex="2" id="userprofile-publicemail">
+</div><div>
+<label for="userprofile-gravataremail">voyti.view.gravatar_email_label</label>
+<input type="email" name="userProfile[gravatarEmail]" value tabindex="3" id="userprofile-gravataremail">
+</div><div>
+<label for="userprofile-birthday">voyti.view.birthday_label</label>
+<input type="date" name="userProfile[birthday]" value tabindex="4" id="userprofile-birthday">
+</div><div>
+<label for="userprofile-location">voyti.view.location_label</label>
+<input type="text" name="userProfile[location]" value tabindex="5" id="userprofile-location">
+</div><div>
+<label for="userprofile-website">voyti.view.website_label</label>
+<input type="text" name="userProfile[website]" value tabindex="6" id="userprofile-website">
+</div><div>
+<label for="userprofile-timezone">voyti.view.timezone_label</label>
+<select tabindex="7" id="userprofile-timezone" name="userProfile[timezone]">
+<option value selected></option>
+<option value="Europe/Berlin">Europe/Berlin</option>
+<option value="UTC">UTC</option>
+</select>
+</div><div>
+<label for="userprofile-bio">voyti.view.bio_label</label>
+<textarea name="userProfile[bio]" tabindex="8" id="userprofile-bio"></textarea>
+<div>voyti.view.bio_variables_hint</div>
+</div><div>
+<button type="reset" tabindex="10">voyti.view.reset_button</button>
+<button type="submit" tabindex="9">voyti.view.save_button</button>
+</div></form></div>

@@ -1,0 +1,14 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti-2fa.view.two_factor.title</h1><p>Enabled with totp</p><form method="POST" action="/fixture/2fa-disable">
+<input type="hidden" name="_csrf" value="test-csrf-token"><p class="text-muted small">voyti-2fa.view.two_factor.backup_code_hint</p><div>
+<label for="voyti-2fa-disable-code">voyti-2fa.view.two_factor.enter_code</label>
+<input type="text" name="code" value tabindex="1" id="voyti-2fa-disable-code">
+</div><div>
+<button type="submit" class="btn btn-danger" tabindex="2">voyti-2fa.view.two_factor.disable</button>
+</div></form><hr><h2 class="h5">voyti-2fa.view.two_factor.regenerate_backup_codes</h2><p class="text-muted small">voyti-2fa.view.two_factor.regenerate_backup_codes_intro</p><div class="alert alert-warning">voyti-2fa.view.two_factor.no_backup_codes_remaining</div><form method="POST" action="/fixture/2fa-regenerate">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="voyti-2fa-regenerate-code">voyti-2fa.view.two_factor.enter_code</label>
+<input type="text" name="code" value tabindex="3" id="voyti-2fa-regenerate-code">
+</div><div>
+<button type="submit" class tabindex="4">voyti-2fa.view.two_factor.regenerate_backup_codes</button>
+</div></form></div>

@@ -1,0 +1,5 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti-2fa.view.two_factor.backup_codes_title</h1><div class="alert alert-warning">voyti-2fa.view.two_factor.backup_codes_intro</div><ul class="list-group mb-3">
+<li class="list-group-item font-monospace">1234-5678</li>
+<li class="list-group-item font-monospace">8765-4321</li>
+</ul><a href="/fixture/settings" class="btn btn-primary">voyti-2fa.view.two_factor.backup_codes_continue</a></div>

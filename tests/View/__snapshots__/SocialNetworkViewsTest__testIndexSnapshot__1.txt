@@ -1,0 +1,6 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a class="nav-link" href="/fixture/account">Account</a></li></ul><h1>voyti.view.networks.title</h1><ul class="list-group">
+<li class="list-group-item"><div class="d-flex justify-content-between align-items-center gap-3"><div class="d-flex align-items-center gap-2"><strong>GitHub</strong> - <span class="text-muted">jane</span></div><form method="POST" action="/fixture/disconnect">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<button type="submit" class="btn btn-outline-danger btn-sm" tabindex="1">voyti.view.disconnect_button</button>
+</div></form></div></li>
+</ul></div>

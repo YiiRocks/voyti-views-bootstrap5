@@ -24,12 +24,12 @@ echo Html::h1($translator->translate('voyti.view.settings.welcome', ['name' => $
 echo Html::ul()
     ->items(
         Html::li(
-            Html::b($translator->translate('voyti.view.email_label'))->render() . ': ' .
-            Html::encode($data['email']),
+            Html::b($translator->translate('voyti.view.email_label'))->render() . ': '
+            . Html::encode($data['email']),
         )->class('list-group-item')->encode(false),
         Html::li(
-            Html::b($translator->translate('voyti.view.settings.member_since'))->render() . ': ' .
-            Html::encode($data['memberSinceDisplay']),
+            Html::b($translator->translate('voyti.view.settings.member_since'))->render() . ': '
+            . Html::encode($data['memberSinceDisplay']),
         )->class('list-group-item')->encode(false),
     )
     ->class('list-group', 'mb-4')

@@ -1,0 +1,20 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><div class="d-flex justify-content-between align-items-center mb-3"><h1>voyti.view.admin.title</h1><a href="/fixture/admin-user-create" class>voyti.view.admin.create_user_link</a></div><form action="/fixture/admin-users" method="get"><div class="row mb-3 g-2"><div class="col"><input type="text" class="form-control" name="username" value placeholder="voyti.view.username_header" tabindex="1"></div><div class="col"><input type="text" class="form-control" name="email" value placeholder="voyti.view.email_header" tabindex="2"></div><div class="col"><select name="status" class="form-select" tabindex="3">
+<option value>voyti.view.status_header</option>
+<option value="confirmed" selected>voyti.view.status_active</option>
+<option value="unconfirmed">voyti.view.status_pending</option>
+<option value="blocked">voyti.view.status_blocked</option>
+</select></div><div class="col-auto"><select name="perPage" class="form-select" aria-label="voyti.view.per_page_label" tabindex="4">
+<option value="10" selected>10</option>
+<option value="25">25</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select></div><div class="col-auto"><div class="btn-group">
+<button type="reset" class="btn btn-outline-secondary" tabindex="6">voyti.view.reset_button</button>
+<button type="submit" class="btn btn-outline-secondary" tabindex="5">voyti.view.filter_button</button>
+</div></div></div></form><div class="d-none d-md-flex row fw-bold border-bottom pb-2 mb-2"><div class="col-1">voyti.view.id_header</div><div class="col-3">voyti.view.username_header</div><div class="col-3">voyti.view.email_header</div><div class="col-2">voyti.view.status_header</div><div class="col-3 text-end">voyti.view.actions_header</div></div><div class="row py-2 border-bottom align-items-center"><div class="col-1">1</div><div class="col-3 text-break">jane</div><div class="col-3 text-break">jane@example.com</div><div class="col-2"><span class="badge text-bg-success">Active</span></div><div class="col-3 text-end"><a href="/fixture/user-show" class="btn btn-sm btn-outline-secondary me-1">voyti.view.info_link</a><div class="dropdown d-inline-block"><button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">voyti.view.actions_header</button><ul class="dropdown-menu dropdown-menu-end"><li><a href="/fixture/user-update" class="dropdown-item">voyti.view.update_link</a></li><li><a href="/fixture/user-profile" class="dropdown-item">voyti.view.update_profile_link</a></li><li><a href="/fixture/user-sessions" class="dropdown-item">voyti.view.admin.sessions_link</a></li><li><form method="POST" action="/fixture/user-force-change">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="dropdown-item" tabindex="1">voyti.view.force_password_change_button</button></form></li><li><form method="POST" action="/fixture/user-reset">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="dropdown-item" tabindex="1">voyti.view.reset_password_button</button></form></li><li><form method="POST" action="/fixture/user-switch">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="dropdown-item" tabindex="1">voyti.view.admin.impersonate_button</button></form></li><li><hr class="dropdown-divider"></li><li><form method="POST" action="/fixture/user-block">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="dropdown-item text-warning" tabindex="1">Block</button></form></li><li><form method="POST" action="/fixture/user-delete">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="dropdown-item text-danger" tabindex="1">voyti.view.delete_button</button></form></li></ul></div></div></div></div>

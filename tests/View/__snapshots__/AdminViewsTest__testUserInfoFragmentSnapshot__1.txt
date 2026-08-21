@@ -1,0 +1,13 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>jane</h1><ul class="list-group ">
+<li class="list-group-item text-center py-3"><h3 class="h4 mb-3">Jane Doe</h3><img src="https://gravatar.com/avatar/abc" alt class="rounded-circle"></li>
+<li class="list-group-item list-group-item-primary"><b>voyti.view.email_label</b>: jane@example.com</li>
+<li class="list-group-item list-group-item-primary"><b>voyti.view.admin.registered_label</b>: 2026-01-01 00:00</li>
+<li class="list-group-item list-group-item-primary"><b>voyti.view.status_header</b>: <span class="badge text-bg-success">Active</span></li>
+<li class="list-group-item"><b>voyti.view.public_email_label</b>: jane.public@example.com</li>
+<li class="list-group-item"><b>voyti.view.location_label</b>: Berlin</li>
+<li class="list-group-item"><b>voyti.view.website_label</b>: <a href="https://example.com" rel="noopener noreferrer" target="_blank">https://example.com</a></li>
+<li class="list-group-item"><b>voyti.view.timezone_label</b>: Europe/Berlin</li>
+<li class="list-group-item"><b>voyti.view.bio_label</b>: Line one<br />
+Line two</li>
+</ul></div>

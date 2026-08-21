@@ -1,0 +1,11 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti.view.privacy.anonymize_data</h1><div role="alert" class="alert alert-danger" id="alert-fixed">
+voyti.view.privacy.anonymize_warning
+</div><form method="POST" action="/fixture/anonymize">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="anonymize-password">voyti.view.privacy.anonymize_confirm_label</label>
+<input type="password" name="anonymize[password]" value tabindex="1" id="anonymize-password">
+</div><div>
+<button type="reset" tabindex="3">voyti.view.reset_button</button>
+<button type="submit" class="btn btn-danger" tabindex="2">voyti.view.privacy.anonymize_button</button>
+</div></form></div>

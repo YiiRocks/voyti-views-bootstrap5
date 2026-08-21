@@ -1,0 +1,49 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti-2fa.view.two_factor.title</h1><p>Enabled with totp</p><button type="button" class="btn btn-danger" data-voyti-2fa-assertion data-voyti-2fa-submit-url="/fixture/2fa-disable" tabindex="1">voyti-2fa.view.two_factor.disable</button><hr><h2 class="h5">voyti-2fa.view.two_factor.regenerate_backup_codes</h2><p class="text-muted small">voyti-2fa.view.two_factor.regenerate_backup_codes_intro</p><button type="button" class data-voyti-2fa-assertion data-voyti-2fa-submit-url="/fixture/2fa-regenerate" tabindex="2">voyti-2fa.view.two_factor.regenerate_backup_codes</button><div id="voyti-2fa-assertion-host" data-voyti-2fa-assertion-host></div><script>(() => {
+    const cfg = {"fragmentUrl":"\/fixture\/2fa-reauth","loadingLabel":"voyti-2fa.view.two_factor.loading"};
+
+    const host = document.getElementById('voyti-2fa-assertion-host');
+    const buttons = document.querySelectorAll('[data-voyti-2fa-assertion]');
+    if (!host || !cfg.fragmentUrl) {
+        return;
+    }
+
+    const runAssertion = async submitUrl => {
+        host.setAttribute('data-voyti-2fa-submit-url', submitUrl);
+        host.innerHTML = '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">' + cfg.loadingLabel + '</span></div></div>';
+
+        try {
+            const response = await fetch(cfg.fragmentUrl, {
+                credentials: 'same-origin',
+                headers: {
+                    Accept: 'text/html',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error();
+            }
+
+            host.innerHTML = await response.text();
+
+            // Scripts inserted via innerHTML don't execute; re-inject them so the
+            // method's assertion ceremony runs.
+            host.querySelectorAll('script').forEach(script => {
+                const clone = document.createElement('script');
+                Array.from(script.attributes).forEach(attr => clone.setAttribute(attr.name, attr.value));
+                clone.textContent = script.textContent;
+                script.replaceWith(clone);
+            });
+        } catch {
+            location.href = cfg.fragmentUrl;
+        }
+    };
+
+    buttons.forEach(button => {
+        button.addEventListener('click', event => {
+            event.preventDefault();
+            runAssertion(button.getAttribute('data-voyti-2fa-submit-url'));
+        });
+    });
+})();</script></div>

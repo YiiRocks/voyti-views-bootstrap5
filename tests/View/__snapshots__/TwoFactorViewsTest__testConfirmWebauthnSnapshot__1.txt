@@ -1,0 +1,37 @@
+<div><h1>voyti-2fa.view.two_factor.title</h1><div id="voyti-session-confirm-method" data-voyti-2fa-assertion-host><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">voyti-2fa.view.two_factor.loading</span></div></div></div><script>(() => {
+    const cfg = {"fragmentUrl":"\/fixture\/2fa-method-fragment"};
+
+    const container = document.getElementById('voyti-session-confirm-method');
+    if (!container || !cfg.fragmentUrl) {
+        return;
+    }
+
+    fetch(cfg.fragmentUrl, {
+        credentials: 'same-origin',
+        headers: {
+            Accept: 'text/html',
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error();
+            }
+            return response.text();
+        })
+        .then(html => {
+            container.innerHTML = html;
+
+            // Scripts inserted via innerHTML don't execute, so re-inject them manually -
+            // the method fragment (e.g. WebAuthn) runs its ceremony from this script.
+            container.querySelectorAll('script').forEach(script => {
+                const clone = document.createElement('script');
+                Array.from(script.attributes).forEach(attr => clone.setAttribute(attr.name, attr.value));
+                clone.textContent = script.textContent;
+                script.replaceWith(clone);
+            });
+        })
+        .catch(() => {
+            location.href = cfg.fragmentUrl;
+        });
+})();</script></div>

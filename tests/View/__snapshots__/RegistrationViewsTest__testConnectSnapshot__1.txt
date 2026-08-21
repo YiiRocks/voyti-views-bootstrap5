@@ -1,0 +1,1 @@
+<div><h1>voyti.view.registration.connect_title</h1><p>voyti.view.registration.connect_provider</p><p>voyti.view.registration.connect_message</p><a href="/fixture/login" class>voyti.view.registration.connect_login</a> <a href="/fixture/register" class="btn btn-outline-secondary">voyti.view.registration.connect_register</a></div>

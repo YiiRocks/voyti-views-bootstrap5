@@ -1,0 +1,8 @@
+<div><h1>voyti.view.registration.resend_title</h1><form method="POST" action="/fixture/resend">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="resend-email">voyti.view.email_label</label>
+<input type="email" name="resend[email]" value tabindex="1" id="resend-email">
+</div><div>
+<button type="reset" tabindex="3">voyti.view.reset_button</button>
+<button type="submit" tabindex="2">voyti.view.send_button</button>
+</div></form></div>

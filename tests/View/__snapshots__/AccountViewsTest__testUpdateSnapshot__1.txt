@@ -1,0 +1,18 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti.view.account.title</h1><form method="POST" action="/fixture/account-update">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="settings-username">voyti.view.username_label</label>
+<input type="text" name="settings[username]" value tabindex="1" id="settings-username">
+</div><div>
+<label for="settings-email">voyti.view.email_label</label>
+<input type="email" name="settings[email]" value tabindex="2" id="settings-email">
+</div><div>
+<label for="settings-password">voyti.view.new_password_label</label>
+<input type="password" name="settings[password]" value tabindex="3" id="settings-password">
+</div><div>
+<label for="settings-passwordrepeat">voyti.view.new_password_repeat_label</label>
+<input type="password" name="settings[passwordRepeat]" value tabindex="4" id="settings-passwordrepeat">
+</div><div>
+<button type="reset" tabindex="6">voyti.view.reset_button</button>
+<button type="submit" tabindex="5">voyti.view.save_button</button>
+</div></form></div>

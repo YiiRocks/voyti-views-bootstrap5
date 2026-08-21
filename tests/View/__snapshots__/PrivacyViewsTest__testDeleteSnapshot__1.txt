@@ -1,0 +1,9 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti.view.delete_account.title</h1><p class="alert alert-danger">voyti.view.delete_account.warning</p><form method="POST" action="/fixture/delete-account">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="delete-account-password">voyti.view.delete_account.confirm_label</label>
+<input type="password" name="delete-account[password]" value tabindex="1" id="delete-account-password">
+</div><div>
+<button type="reset" tabindex="3">voyti.view.reset_button</button>
+<button type="submit" class="btn btn-danger" tabindex="2">voyti.view.delete_account.button</button>
+</div></form></div>

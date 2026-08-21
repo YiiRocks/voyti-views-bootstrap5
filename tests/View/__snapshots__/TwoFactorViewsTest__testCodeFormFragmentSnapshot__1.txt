@@ -1,0 +1,8 @@
+<form method="POST" action="/fixture/2fa-enable">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="code">voyti-2fa.view.two_factor.enter_code</label>
+<input type="text" name="code" value inputmode="numeric" tabindex="1" id="code">
+</div><div>
+<button type="reset" tabindex="3">voyti.view.reset_button</button>
+<button type="submit" tabindex="2">voyti-2fa.view.two_factor.enable</button>
+</div></form>

@@ -1,0 +1,4 @@
+<div class="alert alert-info"><p>voyti-2fa-email.view.two_factor_email.confirm_intro</p><p><strong>jane@example.com</strong></p></div><form method="POST" action="/fixture/2fa-email-send">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<button type="submit" class tabindex="1">voyti-2fa-email.view.two_factor_email.send_button</button>
+</div></form>

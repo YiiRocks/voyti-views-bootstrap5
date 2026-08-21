@@ -1,0 +1,19 @@
+<div><h1>voyti.view.registration.register_title</h1><form method="POST" action="/fixture/register">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="register-username">voyti.view.username_label</label>
+<input type="text" name="register[username]" value tabindex="1" id="register-username">
+</div><div>
+<label for="register-email">voyti.view.email_label</label>
+<input type="email" name="register[email]" value tabindex="2" id="register-email">
+</div><div>
+<label for="register-password">voyti.view.password_label</label>
+<input type="password" name="register[password]" value tabindex="3" id="register-password">
+</div><div>
+<label for="register-passwordrepeat">voyti.view.password_repeat_label</label>
+<input type="password" name="register[passwordRepeat]" value tabindex="4" id="register-passwordrepeat">
+</div><div>
+<input type="hidden" name="register[dataProcessingConsent]" value="0"><label><input name="register[dataProcessingConsent]" value="1" tabindex="5" id="register-dataprocessingconsent" type="checkbox"> voyti.view.registration.data_processing_consent_label</label>
+</div><div>
+<button type="reset" tabindex="7">voyti.view.reset_button</button>
+<button type="submit" tabindex="6">voyti.view.registration.register_button</button>
+</div><div class="mt-3"><a href="/fixture/login">voyti.view.registration.already_have_account</a></div></form></div>
