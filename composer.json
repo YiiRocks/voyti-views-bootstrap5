@@ -68,12 +68,7 @@
     "scripts": {
         "php-cs-fixer": "@php vendor/bin/php-cs-fixer fix",
         "phpunit": "@php vendor/bin/phpunit",
-        "rector": "@php vendor/bin/rector process",
-        "test": [
-            "@php vendor/bin/php-cs-fixer fix --dry-run",
-            "@php vendor/bin/rector process --dry-run",
-            "@php vendor/bin/phpunit"
-        ]
+        "rector": "@php vendor/bin/rector process"
     },
     "funding": [
         {
