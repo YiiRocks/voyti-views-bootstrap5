@@ -61,6 +61,7 @@ final class TestConfig
             viewPath: null,
             mailPath: '/mail',
             enableAuditLog: true,
+            rememberMeCookieDomain: null,
         );
     }
 
