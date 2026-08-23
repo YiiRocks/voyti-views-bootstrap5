@@ -21,6 +21,25 @@ final class SessionViewsTest extends ViewTestCase
         self::assertStringContainsString('href="/fixture/register"', $html);
     }
 
+    public function testLoginWithEmptySocialClients(): void
+    {
+        $authChoice = Fixtures::authChoice();
+        $authChoice->setClients([]);
+
+        $html = $this->renderView('session/login', Fixtures::for('session/login', [
+            'data' => [
+                'formSubmitUrl' => '/fixture/login',
+                'forgotPasswordUrl' => '/fixture/forgot',
+                'showRegisterLink' => true,
+                'registerUrl' => '/fixture/register',
+                'recaptchaFieldHtml' => '',
+                'authChoice' => $authChoice,
+            ],
+        ]));
+
+        self::assertStringNotContainsString('voyti.view.login.social_divider', $html);
+    }
+
     public function testLoginWithoutRegisterLink(): void
     {
         $html = $this->renderView('session/login', Fixtures::for('session/login', [
@@ -35,5 +54,23 @@ final class SessionViewsTest extends ViewTestCase
         ]));
 
         self::assertStringNotContainsString('/fixture/register"', $html);
+    }
+
+    public function testLoginWithSocialClients(): void
+    {
+        $html = $this->renderView('session/login', Fixtures::for('session/login', [
+            'data' => [
+                'formSubmitUrl' => '/fixture/login',
+                'forgotPasswordUrl' => '/fixture/forgot',
+                'showRegisterLink' => true,
+                'registerUrl' => '/fixture/register',
+                'recaptchaFieldHtml' => '',
+                'authChoice' => Fixtures::authChoice(),
+            ],
+        ]));
+
+        self::assertStringContainsString('voyti.view.login.social_divider', $html);
+        self::assertStringContainsString('href="/fixture/voyti/session-auth"', $html);
+        self::assertStringContainsString('class="auth-icon github"', $html);
     }
 }

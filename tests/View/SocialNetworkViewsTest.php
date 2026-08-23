@@ -14,6 +14,15 @@ final class SocialNetworkViewsTest extends ViewTestCase
         $this->assertViewSnapshot('social-network/index');
     }
 
+    public function testIndexWithConnectableClientsSnapshot(): void
+    {
+        $this->assertViewSnapshot('social-network/index', [
+            'data' => array_merge(Fixtures::for('social-network/index')['data'], [
+                'authChoice' => Fixtures::authChoice(),
+            ]),
+        ]);
+    }
+
     public function testIndexWithoutAccounts(): void
     {
         $html = $this->renderView('social-network/index', Fixtures::for('social-network/index', [

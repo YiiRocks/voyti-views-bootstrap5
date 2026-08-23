@@ -1,0 +1,84 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti-2fa.view.two_factor.title</h1><div class="d-flex justify-content-center mb-3"><div class="btn-group"><a href="/fixture/2fa-method-totp" class data-voyti-2fa-method="totp">TOTP</a><a href="/fixture/2fa-method-email" class data-voyti-2fa-method="email">Email</a></div></div><div id="voyti-2fa-content"><div><p data-voyti-test="fragment">TOTP setup fragment</p></div></div><script>(() => {
+    const cfg = {"csrfToken":"test-csrf-token","autoloadUrl":"\/fixture\/2fa-method-totp","autoloadMethod":"totp","activeClass":"","inactiveClass":""};
+
+    const content = document.getElementById('voyti-2fa-content');
+    const buttons = document.querySelectorAll('[data-voyti-2fa-method]');
+
+    const classNames = value => (value ? value.split(/\s+/).filter(Boolean) : []);
+
+    const setActive = method => {
+        buttons.forEach(button => {
+            const active = button.getAttribute('data-voyti-2fa-method') === method;
+            const onClasses = classNames(active ? cfg.activeClass : cfg.inactiveClass);
+            const offClasses = classNames(active ? cfg.inactiveClass : cfg.activeClass);
+
+            offClasses.forEach(className => {
+                if (!onClasses.includes(className)) {
+                    button.classList.remove(className);
+                }
+            });
+            onClasses.forEach(className => button.classList.add(className));
+        });
+    };
+
+    const loadMethod = async (method, url) => {
+        if (!content || !url) {
+            return;
+        }
+
+        try {
+            const response = await fetch(url, {
+                credentials: 'same-origin',
+                headers: {
+                    Accept: 'text/html',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error();
+            }
+
+            const html = await response.text();
+            content.innerHTML = html;
+
+            // Scripts inserted via innerHTML don't execute, so re-inject them manually.
+            // Fragments register idempotent (guarded) event handlers so re-running them
+            // on every method switch stays safe.
+            content.querySelectorAll('script').forEach(script => {
+                const clone = document.createElement('script');
+                Array.from(script.attributes).forEach(attr => clone.setAttribute(attr.name, attr.value));
+                clone.textContent = script.textContent;
+                script.replaceWith(clone);
+            });
+
+            setActive(method);
+            history.replaceState(null, '', url);
+        } catch {
+            location.href = url;
+        }
+    };
+
+    buttons.forEach(button => {
+        button.addEventListener('click', event => {
+            if (
+                event.defaultPrevented ||
+                event.button !== 0 ||
+                event.metaKey ||
+                event.ctrlKey ||
+                event.shiftKey ||
+                event.altKey
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+            loadMethod(button.getAttribute('data-voyti-2fa-method'), button.href);
+        });
+    });
+
+    if (cfg.autoloadUrl) {
+        loadMethod(cfg.autoloadMethod, cfg.autoloadUrl);
+    }
+})();</script></div>

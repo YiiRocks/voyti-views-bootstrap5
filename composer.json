@@ -24,6 +24,9 @@
         "issues": "https://github.com/YiiRocks/voyti-views-bootstrap5/issues",
         "source": "https://github.com/YiiRocks/voyti-views-bootstrap5/tree/main"
     },
+    "provide": {
+        "yiirocks/voyti-views": "^1.0"
+    },
     "require": {
         "php": ">=8.3",
         "yiirocks/voyti": "^1.0",
@@ -34,14 +37,6 @@
         "yiisoft/view": "^12.0",
         "yiisoft/yii-dataview": "^1.1"
     },
-    "provide": {
-        "yiirocks/voyti-views": "^1.0"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "YiiRocks\\VoytiViewsBootstrap5\\Tests\\": "tests"
-        }
-    },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "@stable",
         "nyholm/psr7": "^1.8",
@@ -49,10 +44,16 @@
         "rector/rector": "^2.1.1",
         "spatie/phpunit-snapshot-assertions": "^5.0",
         "yiirocks/toast-bootstrap5": "^1.0",
+        "yiirocks/voyti-2fa": "^1.0",
         "yiisoft/code-style": "^1.1",
         "yiisoft/db-sqlite": "^2.0",
         "yiisoft/router-fastroute": "^4.0",
-        "yiirocks/voyti-2fa": "^1.0"
+        "yiisoft/yii-auth-client": "dev-master"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "YiiRocks\\VoytiViewsBootstrap5\\Tests\\": "tests"
+        }
     },
     "extra": {
         "branch-alias": {

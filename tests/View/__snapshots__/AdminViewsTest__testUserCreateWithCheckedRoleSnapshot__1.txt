@@ -1,0 +1,15 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti.view.admin.create_user_title</h1><form method="POST" action="/fixture/admin-user-create">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<label for="register-username">voyti.view.username_label</label>
+<input type="text" name="user[username]" value tabindex="1" id="register-username">
+</div><div>
+<label for="register-email">voyti.view.email_label</label>
+<input type="email" name="user[email]" value tabindex="2" id="register-email">
+</div><div>
+<label for="register-password">voyti.view.password_label</label>
+<input type="password" name="user[password]" value tabindex="3" id="register-password">
+</div><h3 class="mb-3">voyti.view.assignments.title</h3><div class="form-check"><input type="checkbox" class="form-check-input" name="assignedItems[]" value="viewer" tabindex="4" checked><label class="form-check-label">viewer</label></div><div>
+<button type="reset" tabindex="6">voyti.view.reset_button</button>
+<button type="submit" tabindex="5">voyti.view.create_button</button>
+</div></form></div>

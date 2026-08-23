@@ -1,0 +1,5 @@
+<div><ul class="nav nav-tabs mb-4"><li class="nav-item"><a href="/fixture/account" class="nav-link">Account</a></li><li class="nav-item ms-auto"><form method="POST" action="/fixture/logout">
+<input type="hidden" name="_csrf" value="test-csrf-token"><button type="submit" class="nav-link btn btn-link">Logout</button></form></li></ul><h1>voyti-2fa.view.two_factor.title</h1><p>Enabled with totp</p><div class="alert alert-info">voyti-2fa.view.two_factor.disable_confirm_intro</div><form method="POST" action="/fixture/2fa-disable-send">
+<input type="hidden" name="_csrf" value="test-csrf-token"><div>
+<button type="submit" class="btn btn-danger" tabindex="1">voyti-2fa.view.two_factor.disable_send_code</button>
+</div></form></div>

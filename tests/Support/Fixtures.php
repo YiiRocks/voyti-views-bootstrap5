@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace YiiRocks\VoytiViewsBootstrap5\Tests\Support;
 
 use LogicException;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use YiiRocks\Voyti\Helper\LinkButtonHelper;
 use YiiRocks\Voyti\Model\Form\Auth\LoginForm;
 use YiiRocks\Voyti\Model\Form\Auth\RecoveryForm;
 use YiiRocks\Voyti\Model\Form\Auth\RegistrationForm;
@@ -16,8 +21,17 @@ use YiiRocks\Voyti\Model\Form\Settings\SettingsForm;
 use YiiRocks\Voyti\Model\Form\Settings\UserProfileForm;
 use YiiRocks\Voyti\TwoFactor\Form\ConfirmForm;
 use YiiRocks\Voyti\TwoFactor\Form\TwoFactorCodeForm;
+use Yiisoft\Aliases\Aliases;
+use Yiisoft\Assets\AssetLoader;
+use Yiisoft\Assets\AssetManager;
 use Yiisoft\Data\Paginator\OffsetPaginator;
 use Yiisoft\Data\Reader\Iterable\IterableDataReader;
+use Yiisoft\Factory\Factory;
+use Yiisoft\Session\Session;
+use Yiisoft\Yii\AuthClient\Client\GitHub;
+use Yiisoft\Yii\AuthClient\Collection;
+use Yiisoft\Yii\AuthClient\StateStorage\DummyStateStorage;
+use Yiisoft\Yii\AuthClient\Widget\AuthChoice;
 
 /**
  * Builds realistic render parameters for every view in the package, mirroring the `@var` contract
@@ -31,6 +45,43 @@ final class Fixtures
      * Views that legitimately produce no output when rendered standalone.
      */
     private const array EMPTY_OUTPUT = ['privacy/export', 'shared/_flash'];
+
+    /**
+     * Builds a real {@see AuthChoice} widget configured exactly as both production call sites do
+     * (voyti core's SessionController and voyti-social-auth's SocialNetworkController), wired with
+     * a GitHub OAuth2 client. Each call returns a fresh instance: the widget caches its rendered
+     * open tag internally, so instances must never be reused across renders.
+     */
+    public static function authChoice(): AuthChoice
+    {
+        $root = dirname(__DIR__, 2);
+        $aliases = new Aliases([
+            '@assets' => "$root/vendor/yiisoft/yii-auth-client/resources/assets",
+            '@assetsUrl' => '/assets/authclient',
+            '@vendor' => "$root/vendor",
+        ]);
+        $httpClient = new class implements ClientInterface {
+            public function sendRequest(RequestInterface $request): ResponseInterface
+            {
+                throw new LogicException('Auth clients never hit the network while rendering views.');
+            }
+        };
+
+        return (new AuthChoice(
+            new Collection([
+                'github' => new GitHub(
+                    $httpClient,
+                    new Psr17Factory(),
+                    new DummyStateStorage(),
+                    new Factory(),
+                    new Session(),
+                ),
+            ]),
+            new FakeUrlGenerator(),
+            new AssetManager($aliases, new AssetLoader($aliases)),
+        ))->authRoute('voyti/session-auth')
+            ->linkAttributes(['class' => LinkButtonHelper::submitButtonClass()]);
+    }
 
     public static function coreViews(): string
     {

@@ -57,6 +57,28 @@ final class TwoFactorViewsTest extends ViewTestCase
         $this->assertViewSnapshot('two-factor/index');
     }
 
+    public function testIndexEnabledCodeBasedDeliveryPendingSnapshot(): void
+    {
+        $this->assertViewSnapshot('two-factor/index', [
+            'data' => array_merge(Fixtures::for('two-factor/index')['data'], [
+                'isEnabled' => true,
+                'requiresCodeDelivery' => true,
+                'codeDelivered' => false,
+            ]),
+        ]);
+    }
+
+    public function testIndexEnabledCodeBasedEnterCodeSnapshot(): void
+    {
+        $this->assertViewSnapshot('two-factor/index', [
+            'data' => array_merge(Fixtures::for('two-factor/index')['data'], [
+                'isEnabled' => true,
+                'requiresCodeDelivery' => true,
+                'codeDelivered' => true,
+            ]),
+        ]);
+    }
+
     public function testIndexEnabledCodeBasedSnapshot(): void
     {
         $this->assertViewSnapshot('two-factor/index', [
@@ -69,6 +91,18 @@ final class TwoFactorViewsTest extends ViewTestCase
         ]);
     }
 
+    public function testIndexEnabledWebauthnNoBackupCodesSnapshot(): void
+    {
+        $this->assertViewSnapshot('two-factor/index', [
+            'data' => array_merge(Fixtures::for('two-factor/index')['data'], [
+                'isEnabled' => true,
+                'isCodeBased' => false,
+                'reauthFragmentUrl' => '/fixture/2fa-reauth',
+                'hasBackupCodes' => false,
+            ]),
+        ]);
+    }
+
     public function testIndexEnabledWebauthnSnapshot(): void
     {
         $this->assertViewSnapshot('two-factor/index', [
@@ -76,6 +110,24 @@ final class TwoFactorViewsTest extends ViewTestCase
                 'isEnabled' => true,
                 'isCodeBased' => false,
                 'reauthFragmentUrl' => '/fixture/2fa-reauth',
+            ]),
+        ]);
+    }
+
+    public function testIndexPreloadedFragmentSnapshot(): void
+    {
+        $this->assertViewSnapshot('two-factor/index', [
+            'data' => array_merge(Fixtures::for('two-factor/index')['data'], [
+                'preloadedFragmentHtml' => '<p data-voyti-test="fragment">TOTP setup fragment</p>',
+            ]),
+        ]);
+    }
+
+    public function testIndexWithErrorsSnapshot(): void
+    {
+        $this->assertViewSnapshot('two-factor/index', [
+            'data' => array_merge(Fixtures::for('two-factor/index')['data'], [
+                'errors' => ['code' => ['Invalid or expired code.']],
             ]),
         ]);
     }

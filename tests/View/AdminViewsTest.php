@@ -55,9 +55,51 @@ final class AdminViewsTest extends ViewTestCase
         $this->assertViewSnapshot('admin/rbac/index');
     }
 
+    public function testRbacRuleCreateWithErrors(): void
+    {
+        $base = Fixtures::for('admin/rbac/rule/create')['data'];
+        $base['errors'] = ['name' => ['Name is required.']];
+
+        $html = $this->renderView('admin/rbac/rule/create', [
+            'data' => $base,
+            'form' => Fixtures::for('admin/rbac/rule/create')['form'],
+        ]);
+
+        self::assertStringContainsString('alert-danger', $html);
+        self::assertStringContainsString('Name is required.', $html);
+    }
+
+    public function testRbacRuleUpdateWithErrors(): void
+    {
+        $base = Fixtures::for('admin/rbac/rule/update')['data'];
+        $base['errors'] = ['name' => ['Name is required.']];
+
+        $html = $this->renderView('admin/rbac/rule/update', [
+            'data' => $base,
+            'form' => Fixtures::for('admin/rbac/rule/update')['form'],
+        ]);
+
+        self::assertStringContainsString('alert-danger', $html);
+        self::assertStringContainsString('Name is required.', $html);
+    }
+
     public function testRbacUpdateSnapshot(): void
     {
         $this->assertViewSnapshot('admin/rbac/update');
+    }
+
+    public function testRbacUpdateWithErrors(): void
+    {
+        $base = Fixtures::for('admin/rbac/update')['data'];
+        $base['errors'] = ['name' => ['Name is required.']];
+
+        $html = $this->renderView('admin/rbac/update', [
+            'data' => $base,
+            'form' => Fixtures::for('admin/rbac/update')['form'],
+        ]);
+
+        self::assertStringContainsString('alert-danger', $html);
+        self::assertStringContainsString('Name is required.', $html);
     }
 
     public function testRuleCreateSnapshot(): void
@@ -90,9 +132,30 @@ final class AdminViewsTest extends ViewTestCase
         $this->assertViewSnapshot('admin/user/create');
     }
 
+    public function testUserCreateWithCheckedRoleSnapshot(): void
+    {
+        $this->assertViewSnapshot('admin/user/create', [
+            'data' => array_merge(Fixtures::for('admin/user/create')['data'], [
+                'items' => [['name' => 'viewer', 'checked' => true]],
+            ]),
+        ]);
+    }
+
     public function testUserIndexSnapshot(): void
     {
         $this->assertViewSnapshot('admin/user/index');
+    }
+
+    public function testUserIndexWithConfirmActionSnapshot(): void
+    {
+        $users = Fixtures::for('admin/user/index')['data']['users'];
+        $users[0]['showConfirmAction'] = true;
+
+        $this->assertViewSnapshot('admin/user/index', [
+            'data' => array_merge(Fixtures::for('admin/user/index')['data'], [
+                'users' => $users,
+            ]),
+        ]);
     }
 
     public function testUserInfoFragmentSnapshot(): void
