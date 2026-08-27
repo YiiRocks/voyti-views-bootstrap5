@@ -64,10 +64,7 @@
         }
     },
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "yiisoft/config": true
-        }
+        "sort-packages": true
     },
     "scripts": {
         "php-cs-fixer": "@php vendor/bin/php-cs-fixer fix",
