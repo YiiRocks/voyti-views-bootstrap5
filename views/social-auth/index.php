@@ -22,16 +22,16 @@ use Yiisoft\Yii\View\Renderer\Csrf;
  * @var Csrf $csrf
  */
 
-$this->setTitle($translator->translate('voyti.view.networks.title', category: 'voyti-social-auth'));
+$this->setTitle($translator->translate('voyti.view.social_auth.title', category: 'voyti-social-auth'));
 
 echo Html::div()->open();
 echo $data['menuHtml'];
 echo $data['flashHtml'];
 
-echo Html::H1($translator->translate('voyti.view.networks.title', category: 'voyti-social-auth'));
+echo Html::H1($translator->translate('voyti.view.social_auth.title', category: 'voyti-social-auth'));
 
 if (empty($data['accounts'])) {
-    echo Html::p($translator->translate('voyti.view.networks.no_networks', category: 'voyti-social-auth'));
+    echo Html::p($translator->translate('voyti.view.social_auth.no_accounts', category: 'voyti-social-auth'));
 } else {
     $items = [];
     foreach ($data['accounts'] as $account) {

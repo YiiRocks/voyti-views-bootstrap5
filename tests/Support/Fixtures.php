@@ -48,7 +48,7 @@ final class Fixtures
 
     /**
      * Builds a real {@see AuthChoice} widget configured exactly as both production call sites do
-     * (voyti core's SessionController and voyti-social-auth's SocialNetworkController), wired with
+     * (voyti core's SessionController and voyti-social-auth's SocialAuthController), wired with
      * a GitHub OAuth2 client. Each call returns a fresh instance: the widget caches its rendered
      * open tag internally, so instances must never be reused across renders.
      */
@@ -586,7 +586,7 @@ final class Fixtures
                 ],
             ],
 
-            'social-network/index' => static fn(): array => [
+            'social-auth/index' => static fn(): array => [
                 'data' => [
                     'menuHtml' => '<ul class="nav nav-tabs mb-4"><li class="nav-item"><a class="nav-link" href="/fixture/account">Account</a></li></ul>',
                     'flashHtml' => '',

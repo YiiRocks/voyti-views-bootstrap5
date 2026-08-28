@@ -7,17 +7,17 @@ namespace YiiRocks\VoytiViewsBootstrap5\Tests\View;
 use YiiRocks\VoytiViewsBootstrap5\Tests\Support\Fixtures;
 use YiiRocks\VoytiViewsBootstrap5\Tests\Support\ViewTestCase;
 
-final class SocialNetworkViewsTest extends ViewTestCase
+final class SocialAuthViewsTest extends ViewTestCase
 {
     public function testIndexSnapshot(): void
     {
-        $this->assertViewSnapshot('social-network/index');
+        $this->assertViewSnapshot('social-auth/index');
     }
 
     public function testIndexWithConnectableClientsSnapshot(): void
     {
-        $this->assertViewSnapshot('social-network/index', [
-            'data' => array_merge(Fixtures::for('social-network/index')['data'], [
+        $this->assertViewSnapshot('social-auth/index', [
+            'data' => array_merge(Fixtures::for('social-auth/index')['data'], [
                 'authChoice' => Fixtures::authChoice(),
             ]),
         ]);
@@ -25,7 +25,7 @@ final class SocialNetworkViewsTest extends ViewTestCase
 
     public function testIndexWithoutAccounts(): void
     {
-        $html = $this->renderView('social-network/index', Fixtures::for('social-network/index', [
+        $html = $this->renderView('social-auth/index', Fixtures::for('social-auth/index', [
             'data' => [
                 'menuHtml' => '',
                 'flashHtml' => '',
@@ -34,6 +34,6 @@ final class SocialNetworkViewsTest extends ViewTestCase
             ],
         ]));
 
-        self::assertStringContainsString('voyti.view.networks.no_networks', $html);
+        self::assertStringContainsString('voyti.view.social_auth.no_accounts', $html);
     }
 }
