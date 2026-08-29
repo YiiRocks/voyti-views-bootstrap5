@@ -44,7 +44,7 @@ final class Fixtures
     /**
      * Views that legitimately produce no output when rendered standalone.
      */
-    private const array EMPTY_OUTPUT = ['privacy/export', 'shared/_flash'];
+    private const array EMPTY_OUTPUT = ['shared/_flash'];
 
     /**
      * Builds a real {@see AuthChoice} widget configured exactly as both production call sites do
