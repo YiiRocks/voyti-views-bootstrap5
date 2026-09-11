@@ -8,6 +8,7 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use YiiRocks\Voyti\Enum\EmailChangeConfirmation;
 use YiiRocks\Voyti\Enum\ProfileVisibility;
 use YiiRocks\Voyti\Enum\RecaptchaVersion;
+use YiiRocks\Voyti\PasswordPolicyConfig;
 use YiiRocks\Voyti\VoytiConfig;
 use Yiisoft\Aliases\Aliases;
 use Yiisoft\View\WebView;
@@ -51,7 +52,7 @@ final class TestConfig
             mailAdminOnRegister: null,
             recaptchaVersion: RecaptchaVersion::V2,
             maxPasswordAge: 0,
-            enablePasswordComplexity: false,
+            passwordPolicy: new PasswordPolicyConfig(),
             passwordHistoryLimit: 3,
             administratorPermissionName: 'voyti/admin',
             profileVisibility: ProfileVisibility::ADMIN,
