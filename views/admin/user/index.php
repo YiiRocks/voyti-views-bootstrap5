@@ -231,9 +231,11 @@ foreach ($data['users'] as $user) {
 }
 
 echo OffsetPagination::create(
-    $data['paginator'],
-    $data['pageUrlPattern'],
-    $data['firstPageUrl'],
+    paginator: $data['paginator'],
+    urlPattern: $data['pageUrlPattern'],
+    firstPageUrl: $data['firstPageUrl'],
+    accessibility: true,
+    translator: $translator,
 )
     ->containerAttributes(['aria-label' => $translator->translate('voyti.view.pagination_navigation')])
     ->listTag('ul')

@@ -4,9 +4,9 @@
 <button type="submit" class="btn btn-outline-secondary" tabindex="4">voyti.view.filter_button</button>
 </div></div></div></form><div class="d-none d-md-flex row fw-bold border-bottom pb-2 mb-2"><div class="col-2">voyti.view.audit_log.created_header</div><div class="col-2">voyti.view.audit_log.actor_header</div><div class="col-2">voyti.view.audit_log.action_header</div><div class="col-2">voyti.view.audit_log.target_header</div><div class="col-4">voyti.view.audit_log.context_header</div></div><div class="row py-2 border-bottom align-items-center"><div class="col-2">2026-08-20 12:00</div><div class="col-2">jane</div><div class="col-2 text-break">login.success</div><div class="col-2 text-break">jane</div><div class="col-4 text-break small">{"ip":"203.0.113.10"}</div></div><div class="row py-2 border-bottom align-items-center"><div class="col-2">2026-08-20 11:00</div><div class="col-2">admin</div><div class="col-2 text-break">user.block</div><div class="col-2 text-break">mallory</div><div class="col-4 text-break small">{}</div></div><nav aria-label="voyti.view.pagination_navigation">
 <ul class="pagination justify-content-center">
-<li class="page-item"><a class="page-link" href="/fixture/audit-log">voyti.view.previous</a></li>
-<li class="page-item active"><a class="page-link" href="/fixture/audit-log">1</a></li>
-<li class="page-item"><a class="page-link" href="/fixture/audit-log?page=:page">2</a></li>
-<li class="page-item"><a class="page-link" href="/fixture/audit-log?page=:page">voyti.view.next</a></li>
+<li class="page-item"><span aria-label="Previous page" role="link" aria-disabled="true" class="page-link">voyti.view.previous</span></li>
+<li class="page-item active"><a aria-label="Page {page}" aria-current="page" class="page-link" href="/fixture/audit-log">1</a></li>
+<li class="page-item"><a aria-label="Page {page}" class="page-link" href="/fixture/audit-log?page=:page">2</a></li>
+<li class="page-item"><a aria-label="Next page" class="page-link" href="/fixture/audit-log?page=:page">voyti.view.next</a></li>
 </ul>
 </nav></div>
