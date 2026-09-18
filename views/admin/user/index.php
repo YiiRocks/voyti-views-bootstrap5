@@ -8,6 +8,7 @@ use Yiisoft\FormModel\Field;
 use Yiisoft\Html\Html;
 use Yiisoft\Translator\TranslatorInterface;
 use Yiisoft\View\WebView;
+use Yiisoft\Yii\DataView\ListView\ListView;
 use Yiisoft\Yii\DataView\Pagination\OffsetPagination;
 use Yiisoft\Yii\View\Renderer\Csrf;
 
@@ -19,31 +20,9 @@ use Yiisoft\Yii\View\Renderer\Csrf;
  *   filterActionUrl: string,
  *   filters: array{username: string, email: string, status: string},
  *   perPage: int,
- *   users: list<array{
- *     id: int,
- *     username: string,
- *     email: string,
- *     statusLabel: string,
- *     statusBadgeClass: string,
- *     showConfirmAction: bool,
- *     showForcePasswordChangeAction: bool,
- *     showSwitchIdentityAction: bool,
- *     switchIdentityDisabled: bool,
- *     showUrl: string,
- *     updateUrl: string,
- *     updateProfileUrl: string,
- *     sessionsUrl: string,
- *     confirmUrl: string,
- *     forcePasswordChangeUrl: string,
- *     passwordResetUrl: string,
- *     switchIdentityUrl: string,
- *     blockToggleUrl: string,
- *     blockToggleLabel: string,
- *     deleteUrl: string,
- *   }>,
  *   paginator: OffsetPaginator,
- *   pageUrlPattern: string,
- *   firstPageUrl: string,
+ *   itemView: string,
+ *   urlCreator: callable(array, array): string,
  * } $data
  * @var TranslatorInterface $translator
  * @var array{success: string|null, warning: string|null} $flash
@@ -124,129 +103,20 @@ echo Html::div($translator->translate('voyti.view.status_header'))->class('col-2
 echo Html::div($translator->translate('voyti.view.actions_header'))->class('col-3 text-end');
 echo Html::div()->close();
 
-foreach ($data['users'] as $user) {
-    echo Html::div()->class('row py-2 border-bottom align-items-center')->open();
-    echo Html::div($user['id'])->class('col-1');
-    echo Html::div($user['username'])->class('col-3 text-break');
-    echo Html::div($user['email'])->class('col-3 text-break');
-    echo Html::div()->class('col-2')->open();
-
-    echo Html::span($user['statusLabel'])->class('badge', $user['statusBadgeClass'])->render();
-
-    echo Html::div()->close();
-
-    echo Html::div()->class('col-3 text-end')->open();
-
-    echo Html::a($translator->translate('voyti.view.info_link'), $user['showUrl'])->class('btn', 'btn-sm', 'btn-outline-secondary', 'me-1');
-
-    echo Html::div()->class('dropdown', 'd-inline-block')->open();
-    echo Html::button($translator->translate('voyti.view.actions_header'))
-        ->type('button')
-        ->class('btn', 'btn-sm', 'btn-outline-secondary', 'dropdown-toggle')
-        ->attribute('data-bs-toggle', 'dropdown')
-        ->attribute('aria-expanded', 'false');
-    echo Html::ul()->class('dropdown-menu', 'dropdown-menu-end')->open();
-
-    echo Html::li(
-        Html::a($translator->translate('voyti.view.update_link'), $user['updateUrl'])->class('dropdown-item'),
-    );
-
-    echo Html::li(
-        Html::a($translator->translate('voyti.view.update_profile_link'), $user['updateProfileUrl'])->class('dropdown-item'),
-    );
-
-    echo Html::li(
-        Html::a($translator->translate('voyti.view.admin.sessions_link'), $user['sessionsUrl'])->class('dropdown-item'),
-    );
-
-    if ($user['showConfirmAction']) {
-        echo Html::li()->open();
-        echo Html::form()
-            ->post($user['confirmUrl'])
-            ->csrf($csrf)
-            ->open();
-        echo Html::submitButton($translator->translate('voyti.view.confirm_button'))->class('dropdown-item')->attribute('tabindex', 1);
-        echo Html::form()->close();
-        echo Html::li()->close();
-    }
-
-    if ($user['showForcePasswordChangeAction']) {
-        echo Html::li()->open();
-        echo Html::form()
-            ->post($user['forcePasswordChangeUrl'])
-            ->csrf($csrf)
-            ->open();
-        echo Html::submitButton($translator->translate('voyti.view.force_password_change_button'))->class('dropdown-item')->attribute('tabindex', 1);
-        echo Html::form()->close();
-        echo Html::li()->close();
-    }
-
-    echo Html::li()->open();
-    echo Html::form()
-        ->post($user['passwordResetUrl'])
-        ->csrf($csrf)
-        ->open();
-    echo Html::submitButton($translator->translate('voyti.view.reset_password_button'))->class('dropdown-item')->attribute('tabindex', 1);
-    echo Html::form()->close();
-    echo Html::li()->close();
-
-    if ($user['showSwitchIdentityAction']) {
-        echo Html::li()->open();
-        echo Html::form()
-            ->post($user['switchIdentityUrl'])
-            ->csrf($csrf)
-            ->open();
-        echo Html::submitButton($translator->translate('voyti.view.admin.impersonate_button'))
-            ->class('dropdown-item')
-            ->attribute('tabindex', 1)
-            ->disabled($user['switchIdentityDisabled']);
-        echo Html::form()->close();
-        echo Html::li()->close();
-    }
-
-    echo Html::li(Html::hr()->class('dropdown-divider'));
-
-    echo Html::li()->open();
-    echo Html::form()
-        ->post($user['blockToggleUrl'])
-        ->csrf($csrf)
-        ->open();
-    echo Html::submitButton($user['blockToggleLabel'])->class('dropdown-item', 'text-warning')->attribute('tabindex', 1);
-    echo Html::form()->close();
-    echo Html::li()->close();
-
-    echo Html::li()->open();
-    echo Html::form()
-        ->post($user['deleteUrl'])
-        ->csrf($csrf)
-        ->open();
-    echo Html::submitButton($translator->translate('voyti.view.delete_button'))->class('dropdown-item', 'text-danger')->attribute('tabindex', 1);
-    echo Html::form()->close();
-    echo Html::li()->close();
-
-    echo Html::ul()->close();
-    echo Html::div()->close();
-    echo Html::div()->close();
-    echo Html::div()->close();
-}
-
-echo OffsetPagination::create(
-    paginator: $data['paginator'],
-    urlPattern: $data['pageUrlPattern'],
-    firstPageUrl: $data['firstPageUrl'],
-    accessibility: true,
-    translator: $translator,
-)
-    ->containerAttributes(['aria-label' => $translator->translate('voyti.view.pagination_navigation')])
-    ->listTag('ul')
-    ->listAttributes(['class' => 'pagination justify-content-center'])
-    ->itemTag('li')
-    ->itemAttributes(['class' => 'page-item'])
-    ->currentItemClass('active')
-    ->linkAttributes(['class' => 'page-link'])
-    ->labelFirst(null)
-    ->labelLast(null)
-    ->labelPrevious($translator->translate('voyti.view.previous'))
-    ->labelNext($translator->translate('voyti.view.next'))
+echo ListView::widget(constructorArguments: [$translator])
+    ->dataReader($data['paginator'])
+    ->containerTag(null)
+    ->listTag(null)
+    ->itemTag(null)
+    ->summaryTemplate(null)
+    ->layout('{items}{pager}')
+    ->separator('')
+    ->accessibility()
+    ->urlCreator($data['urlCreator'])
+    ->paginationWidget(
+        OffsetPagination::widget(),
+    )
+    ->itemView($data['itemView'])
+    ->itemViewParameters(['csrf' => $csrf, 'translator' => $translator])
     ->render();
 echo Html::div()->close();

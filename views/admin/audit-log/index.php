@@ -7,6 +7,7 @@ use Yiisoft\FormModel\Field;
 use Yiisoft\Html\Html;
 use Yiisoft\Translator\TranslatorInterface;
 use Yiisoft\View\WebView;
+use Yiisoft\Yii\DataView\ListView\ListView;
 use Yiisoft\Yii\DataView\Pagination\OffsetPagination;
 
 /**
@@ -15,10 +16,9 @@ use Yiisoft\Yii\DataView\Pagination\OffsetPagination;
  *   menu: list<array{label: string, url: string, alignEnd: bool, routeName: string|null}>,
  *   filterActionUrl: string,
  *   filters: array{actorUserId: string, targetUserId: string, action: string},
- *   logs: list<array{createdAt: string, actorLabel: string, action: string, targetLabel: string, context: string}>,
  *   paginator: OffsetPaginator,
- *   pageUrlPattern: string,
- *   firstPageUrl: string,
+ *   itemView: string,
+ *   urlCreator: callable(array, array): string,
  * } $data
  * @var TranslatorInterface $translator
  * @var array{success: string|null, warning: string|null} $flash
@@ -72,33 +72,19 @@ echo Html::div($translator->translate('voyti.view.audit_log.target_header'))->cl
 echo Html::div($translator->translate('voyti.view.audit_log.context_header'))->class('col-4');
 echo Html::div()->close();
 
-foreach ($data['logs'] as $log) {
-    echo Html::div()->class('row py-2 border-bottom align-items-center')->open();
-    echo Html::div($log['createdAt'])->class('col-2');
-    echo Html::div($log['actorLabel'])->class('col-2');
-    echo Html::div($log['action'])->class('col-2 text-break');
-    echo Html::div($log['targetLabel'])->class('col-2 text-break');
-    echo Html::div($log['context'])->class('col-4 text-break small');
-    echo Html::div()->close();
-}
-
-echo OffsetPagination::create(
-    paginator: $data['paginator'],
-    urlPattern: $data['pageUrlPattern'],
-    firstPageUrl: $data['firstPageUrl'],
-    accessibility: true,
-    translator: $translator,
-)
-    ->containerAttributes(['aria-label' => $translator->translate('voyti.view.pagination_navigation')])
-    ->listTag('ul')
-    ->listAttributes(['class' => 'pagination justify-content-center'])
-    ->itemTag('li')
-    ->itemAttributes(['class' => 'page-item'])
-    ->currentItemClass('active')
-    ->linkAttributes(['class' => 'page-link'])
-    ->labelFirst(null)
-    ->labelLast(null)
-    ->labelPrevious($translator->translate('voyti.view.previous'))
-    ->labelNext($translator->translate('voyti.view.next'))
+echo ListView::widget(constructorArguments: [$translator])
+    ->dataReader($data['paginator'])
+    ->containerTag(null)
+    ->listTag(null)
+    ->itemTag(null)
+    ->summaryTemplate(null)
+    ->layout('{items}{pager}')
+    ->separator('')
+    ->accessibility()
+    ->urlCreator($data['urlCreator'])
+    ->paginationWidget(
+        OffsetPagination::widget(),
+    )
+    ->itemView($data['itemView'])
     ->render();
 echo Html::div()->close();

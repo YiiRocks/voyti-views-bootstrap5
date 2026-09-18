@@ -32,6 +32,7 @@ use Yiisoft\Yii\AuthClient\Client\GitHub;
 use Yiisoft\Yii\AuthClient\Collection;
 use Yiisoft\Yii\AuthClient\StateStorage\DummyStateStorage;
 use Yiisoft\Yii\AuthClient\Widget\AuthChoice;
+use Yiisoft\Yii\View\Renderer\Csrf;
 
 /**
  * Builds realistic render parameters for every view in the package, mirroring the `@var` contract
@@ -122,16 +123,81 @@ final class Fixtures
         ];
     }
 
-    public static function paginator(int $total): OffsetPaginator
+    /**
+     * @param int|list<array<string, mixed>> $items
+     */
+    public static function paginator(int|array $items): OffsetPaginator
     {
-        $items = [];
-        for ($i = 1; $i <= $total; $i++) {
-            $items[] = ['id' => $i];
+        if (is_int($items)) {
+            $generatedItems = [];
+            for ($i = 1; $i <= $items; $i++) {
+                $generatedItems[] = ['id' => $i];
+            }
+            $items = $generatedItems;
         }
 
         return (new OffsetPaginator(new IterableDataReader($items)))
             ->withPageSize(2)
             ->withCurrentPage(1);
+    }
+
+    /**
+     * @return list<array{createdAt: string, actorLabel: string, action: string, targetLabel: string, context: string}>
+     */
+    public static function auditLogs(): array
+    {
+        return [
+            [
+                'createdAt' => '2026-08-20 12:00',
+                'actorLabel' => 'jane',
+                'action' => 'login.success',
+                'targetLabel' => 'jane',
+                'context' => '{"ip":"203.0.113.10"}',
+            ],
+            [
+                'createdAt' => '2026-08-20 11:00',
+                'actorLabel' => 'admin',
+                'action' => 'user.block',
+                'targetLabel' => 'mallory',
+                'context' => '{}',
+            ],
+            [
+                'createdAt' => '2026-08-20 10:00',
+                'actorLabel' => 'jane',
+                'action' => 'user.update',
+                'targetLabel' => 'jane',
+                'context' => '{}',
+            ],
+        ];
+    }
+
+    /**
+     * @return list<array<string, bool|int|string|null>>
+     */
+    public static function users(): array
+    {
+        return [[
+            'id' => 1,
+            'username' => 'jane',
+            'email' => 'jane@example.com',
+            'statusLabel' => 'Active',
+            'statusBadgeClass' => 'text-bg-success',
+            'showConfirmAction' => false,
+            'showForcePasswordChangeAction' => true,
+            'showSwitchIdentityAction' => true,
+            'switchIdentityDisabled' => false,
+            'showUrl' => '/fixture/user-show',
+            'updateUrl' => '/fixture/user-update',
+            'updateProfileUrl' => '/fixture/user-profile',
+            'sessionsUrl' => '/fixture/user-sessions',
+            'confirmUrl' => '/fixture/user-confirm',
+            'forcePasswordChangeUrl' => '/fixture/user-force-change',
+            'passwordResetUrl' => '/fixture/user-reset',
+            'switchIdentityUrl' => '/fixture/user-switch',
+            'blockToggleUrl' => '/fixture/user-block',
+            'blockToggleLabel' => 'Block',
+            'deleteUrl' => '/fixture/user-delete',
+        ]];
     }
 
     /**
@@ -217,25 +283,9 @@ final class Fixtures
                     'menu' => self::menu(),
                     'filterActionUrl' => '/fixture/audit-log',
                     'filters' => ['actorUserId' => '', 'targetUserId' => '', 'action' => 'login'],
-                    'logs' => [
-                        [
-                            'createdAt' => '2026-08-20 12:00',
-                            'actorLabel' => 'jane',
-                            'action' => 'login.success',
-                            'targetLabel' => 'jane',
-                            'context' => '{"ip":"203.0.113.10"}',
-                        ],
-                        [
-                            'createdAt' => '2026-08-20 11:00',
-                            'actorLabel' => 'admin',
-                            'action' => 'user.block',
-                            'targetLabel' => 'mallory',
-                            'context' => '{}',
-                        ],
-                    ],
-                    'paginator' => self::paginator(3),
-                    'pageUrlPattern' => '/fixture/audit-log?page=:page',
-                    'firstPageUrl' => '/fixture/audit-log',
+                    'paginator' => self::paginator(self::auditLogs()),
+                    'itemView' => dirname(__DIR__, 2) . '/views/admin/audit-log/_item',
+                    'urlCreator' => static fn(array $arguments, array $query): string => '/fixture/audit-log?page=' . ($query['page'] ?? 1),
                 ],
             ],
 
@@ -436,34 +486,20 @@ final class Fixtures
                     'filterActionUrl' => '/fixture/admin-users',
                     'filters' => ['username' => '', 'email' => '', 'status' => 'confirmed'],
                     'perPage' => 10,
-                    'users' => [
-                        [
-                            'id' => 1,
-                            'username' => 'jane',
-                            'email' => 'jane@example.com',
-                            'statusLabel' => 'Active',
-                            'statusBadgeClass' => 'text-bg-success',
-                            'showConfirmAction' => false,
-                            'showForcePasswordChangeAction' => true,
-                            'showSwitchIdentityAction' => true,
-                            'switchIdentityDisabled' => false,
-                            'showUrl' => '/fixture/user-show',
-                            'updateUrl' => '/fixture/user-update',
-                            'updateProfileUrl' => '/fixture/user-profile',
-                            'sessionsUrl' => '/fixture/user-sessions',
-                            'confirmUrl' => '/fixture/user-confirm',
-                            'forcePasswordChangeUrl' => '/fixture/user-force-change',
-                            'passwordResetUrl' => '/fixture/user-reset',
-                            'switchIdentityUrl' => '/fixture/user-switch',
-                            'blockToggleUrl' => '/fixture/user-block',
-                            'blockToggleLabel' => 'Block',
-                            'deleteUrl' => '/fixture/user-delete',
-                        ],
-                    ],
-                    'paginator' => self::paginator(1),
-                    'pageUrlPattern' => '/fixture/admin-users?page=:page',
-                    'firstPageUrl' => '/fixture/admin-users',
+                    'paginator' => self::paginator(self::users()),
+                    'itemView' => dirname(__DIR__, 2) . '/views/admin/user/_item',
+                    'urlCreator' => static fn(array $arguments, array $query): string => '/fixture/admin-users?page=' . ($query['page'] ?? 1),
                 ],
+            ],
+
+            'admin/user/_item' => static fn(): array => [
+                'data' => self::users()[0],
+                'translator' => $translator,
+                'csrf' => new Csrf('test-csrf-token', '_csrf', 'X-Csrf-Token'),
+            ],
+
+            'admin/audit-log/_item' => static fn(): array => [
+                'data' => self::auditLogs()[0],
             ],
 
             'password-reset/confirm' => static fn(): array => [

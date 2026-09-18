@@ -148,12 +148,13 @@ final class AdminViewsTest extends ViewTestCase
 
     public function testUserIndexWithConfirmActionSnapshot(): void
     {
-        $users = Fixtures::for('admin/user/index')['data']['users'];
+        $users = iterator_to_array(Fixtures::for('admin/user/index')['data']['paginator']->read(), false);
         $users[0]['showConfirmAction'] = true;
 
         $this->assertViewSnapshot('admin/user/index', [
             'data' => array_merge(Fixtures::for('admin/user/index')['data'], [
                 'users' => $users,
+                'paginator' => Fixtures::paginator($users),
             ]),
         ]);
     }

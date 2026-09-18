@@ -50,13 +50,18 @@ $switchIdentityService = new SwitchIdentityService(
     $eventDispatcher,
 );
 
-WidgetFactory::initialize(null, [
-    CsrfTokenInterface::class => new StubCsrfToken('test-csrf-token'),
-    EventDispatcherInterface::class => $eventDispatcher,
-    SessionInterface::class => new Session(),
-    SwitchIdentityService::class => $switchIdentityService,
-    TranslatorInterface::class => new PassthroughTranslator(),
-    UrlGeneratorInterface::class => new FakeUrlGenerator(),
-    VoytiConfig::class => TestConfig::voyti(),
-    WebViewRenderer::class => TestConfig::viewRenderer(),
-]);
+WidgetFactory::initialize(
+    null,
+    [
+        CsrfTokenInterface::class => new StubCsrfToken('test-csrf-token'),
+        EventDispatcherInterface::class => $eventDispatcher,
+        SessionInterface::class => new Session(),
+        SwitchIdentityService::class => $switchIdentityService,
+        TranslatorInterface::class => new PassthroughTranslator(),
+        UrlGeneratorInterface::class => new FakeUrlGenerator(),
+        VoytiConfig::class => TestConfig::voyti(),
+        WebViewRenderer::class => TestConfig::viewRenderer(),
+    ],
+    themes: require dirname(__DIR__) . '/vendor/yiisoft/yii-dataview/config/widgets-themes.php',
+    defaultTheme: 'bootstrap5',
+);
