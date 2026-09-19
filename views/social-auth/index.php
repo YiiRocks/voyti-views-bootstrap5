@@ -33,6 +33,7 @@ echo Html::H1($translator->translate('voyti.view.social_auth.title', category: '
 if (empty($data['accounts'])) {
     echo Html::p($translator->translate('voyti.view.social_auth.no_accounts', category: 'voyti-social-auth'));
 } else {
+    $tabIndex = 0;
     $items = [];
     foreach ($data['accounts'] as $account) {
         $disconnect = Html::form()
@@ -41,7 +42,7 @@ if (empty($data['accounts'])) {
             ->open()
             . Field::buttonGroup()
                 ->buttonsData([
-                    [$translator->translate('voyti.view.disconnect_button', category: 'voyti-social-auth'), 'type' => 'submit', 'class' => 'btn btn-outline-danger btn-sm', 'tabindex' => 1],
+                    [$translator->translate('voyti.view.disconnect_button', category: 'voyti-social-auth'), 'type' => 'submit', 'class' => 'btn btn-outline-danger btn-sm', 'tabindex' => ++$tabIndex],
                 ])
                 ->render()
             . Html::form()->close();

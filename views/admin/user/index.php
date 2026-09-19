@@ -21,7 +21,6 @@ use Yiisoft\Yii\View\Renderer\Csrf;
  *   filters: array{username: string, email: string, status: string},
  *   perPage: int,
  *   paginator: OffsetPaginator,
- *   itemView: string,
  *   urlCreator: callable(array, array): string,
  * } $data
  * @var TranslatorInterface $translator
@@ -116,7 +115,7 @@ echo ListView::widget(constructorArguments: [$translator])
     ->paginationWidget(
         OffsetPagination::widget(),
     )
-    ->itemView($data['itemView'])
+    ->itemView(__DIR__ . '/_item')
     ->itemViewParameters(['csrf' => $csrf, 'translator' => $translator])
     ->render();
 echo Html::div()->close();

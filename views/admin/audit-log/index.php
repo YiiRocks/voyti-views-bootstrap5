@@ -17,7 +17,6 @@ use Yiisoft\Yii\DataView\Pagination\OffsetPagination;
  *   filterActionUrl: string,
  *   filters: array{actorUserId: string, targetUserId: string, action: string},
  *   paginator: OffsetPaginator,
- *   itemView: string,
  *   urlCreator: callable(array, array): string,
  * } $data
  * @var TranslatorInterface $translator
@@ -85,6 +84,6 @@ echo ListView::widget(constructorArguments: [$translator])
     ->paginationWidget(
         OffsetPagination::widget(),
     )
-    ->itemView($data['itemView'])
+    ->itemView(__DIR__ . '/_item')
     ->render();
 echo Html::div()->close();
